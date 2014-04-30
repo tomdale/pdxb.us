@@ -1,14 +1,19 @@
 {{#if loadingPosition}}
-  Loading GPS coordinates…
+  Finding your location…
 {{/if}}
 
-{{#each}}
+{{#if loadingLocations}}
+  Loading nearby locations…
+{{/if}}
+
+{{#each itemController="locationItem"}}
 <div class="location">
   <h2>{{desc}} <span>{{dir}}</span></h2>
+  <div class="distance">{{distance}} away</div>
   {{#if arrivals}}
     {{#with arrivals.firstObject}}
       <div class="first-arrival">
-        <div class="description">{{shortSign}}</div>
+        <div class="description">{{fullSign}}</div>
         <div class="time">
           {{format-date arrivalTime fromBinding=queryTime preventPast=true}}
           {{#if isScheduled}}
@@ -20,15 +25,19 @@
       </div>
     {{/with}}
 
-    <ul class="later-arrivals">
-    {{#each laterArrivals}}
-      <li>{{shortSign}} {{format-date arrivalTime fromBinding=queryTime}}</li>
-    {{/each}}
-  </ul>
+    {{#if laterArrivals}}
+      <ul class="later-arrivals">
+        {{#each laterArrivals}}
+          <li>{{shortSign}} {{format-date arrivalTime fromBinding=queryTime}}</li>
+        {{/each}}
+      </ul>
+    {{/if}}
   {{else}}
     <div class="no-arrivals">
       No estimates for this location.
     </div>
   {{/if}}
+
+  <div class="loc-id">#{{locid}}</div>
   </div>
 {{/each}}

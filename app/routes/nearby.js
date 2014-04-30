@@ -9,7 +9,6 @@ import Arrival from "pdxbus/models/arrival";
 //
 
 var APP_ID = "DCCA6AA121EA73D2C622BAB79";
-var LOC_IDS = [6849, 6850, 10752];
 
 function urlFor(resource) {
   return "http://developer.trimet.org/ws/V1/"+resource+"?json=true&appID="+APP_ID;
@@ -20,7 +19,7 @@ function arrivalsUrl(locations) {
 }
 
 function locationsUrl(latitude, longitude) {
-  return urlFor('stops') + '&ll=' + [latitude, longitude].join(',');
+  return urlFor('stops') + '&ll=' + [latitude, longitude].join(',') + "&feet=3000";
 }
 
 export default Ember.Route.extend({
@@ -29,8 +28,9 @@ export default Ember.Route.extend({
 
     this.location.getPosition()
       .then(function(position) {
-        controller.set('loadingPhase', 'locations');
         var coords = position.coords;
+        controller.set('currentPosition', coords);
+        controller.set('loadingPhase', 'locations');
 
         return $.getJSON(locationsUrl(coords.latitude, coords.longitude));
       })
@@ -39,7 +39,7 @@ export default Ember.Route.extend({
         controller.set('model', locations);
         controller.set('loadingPhase', 'arrivals');
 
-        var locIDs = locations.getEach('locid');
+        var locIDs = locations.getEach('locid').sort();
         return $.getJSON(arrivalsUrl(locIDs));
       })
       .then(function(data) {
