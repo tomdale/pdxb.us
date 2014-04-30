@@ -1,6 +1,6 @@
 module.exports = function(environment) {
   var ENV = {
-    rootURL: '/pdxbus/',
+    rootURL: '/',
     FEATURES: {
       // Here you can enable experimental features on an ember canary build
       // e.g. 'with-controller': true
@@ -22,7 +22,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.rootURL = '/pdxbus/'
   }
 
   return JSON.stringify(ENV); // Set in index.html
