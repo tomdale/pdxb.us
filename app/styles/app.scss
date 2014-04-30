@@ -64,12 +64,13 @@ h2 {
 
 .later-arrivals {
   list-style-type: none;
-  padding: 13px;
+  padding: 6px 13px;
 
   border-left: 3px solid lighten($blue, 30%);
 
   li {
     color: #999;
+    margin: 7px;
   }
 }
 
