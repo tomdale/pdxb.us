@@ -19,7 +19,7 @@ function arrivalsUrl(locations) {
 }
 
 function locationsUrl(latitude, longitude) {
-  return urlFor('stops') + '&ll=' + [latitude, longitude].join(',') + "&feet=3000";
+  return urlFor('stops') + '&ll=' + [latitude, longitude].join(',') + "&feet=1500";
 }
 
 export default Ember.Route.extend({
