@@ -1,0 +1,30 @@
+{{#each}}
+<div class="location">
+  <h2>{{desc}} <span>{{dir}}</span></h2>
+  {{#if arrivals}}
+    {{#with arrivals.firstObject}}
+      <div class="first-arrival">
+        <div class="description">{{shortSign}}</div>
+        <div class="time">
+          {{format-date arrivalTime fromBinding=queryTime preventPast=true}}
+          {{#if isScheduled}}
+            <span class="accuracy scheduled">Scheduled</span>
+          {{else}}
+            <span class="accuracy gps">GPS</span>
+          {{/if}}
+        </div>
+      </div>
+    {{/with}}
+
+    <ul class="later-arrivals">
+    {{#each laterArrivals}}
+      <li>{{shortSign}} {{format-date arrivalTime fromBinding=queryTime}}</li>
+    {{/each}}
+  </ul>
+  {{else}}
+    <div class="no-arrivals">
+      No estimates for this location.
+    </div>
+  {{/if}}
+  </div>
+{{/each}}
