@@ -1,3 +1,10 @@
+var geolocation;
+
+// Detect if geolocation is available on the current device.
+if ('geolocation' in navigator) {
+  geolocation = navigator.geolocation;
+}
+
 export default Ember.Object.extend({
   /*
    * The maximumAge attribute indicates that the application is willing to
@@ -15,7 +22,16 @@ export default Ember.Object.extend({
 
   enableHighAccuracy: true,
 
-  init: function() {
+  getPosition: function() {
+    return new Ember.RSVP.Promise(function(res, rej) {
+      if (!geolocation) {
+        rej(new Error("Geolocation is not available either in this browser or on this device."));
+        return;
+      }
 
+      geolocation.watchPosition(function(position) {
+        res(position);
+      });
+    });
   }
-})
+});

@@ -13,7 +13,7 @@
     "moment": true
   },
   "node" : false,
-  "browser" : false,
+  "browser" : true,
   "boss" : true,
   "curly": false,
   "debug": false,
