@@ -1,43 +1,52 @@
 {{#if loadingPosition}}
+<div class="loading">
   Finding your location…
+</div>
 {{/if}}
 
 {{#if loadingLocations}}
+<div class="loading">
   Loading nearby locations…
+</div>
 {{/if}}
 
 {{#each itemController="locationItem"}}
 <div class="location">
   <h2>{{desc}} <span>{{dir}}</span></h2>
-  <div class="distance">{{distance}} away</div>
-  {{#if arrivals}}
-    {{#with arrivals.firstObject}}
-      <div class="first-arrival">
-        <div class="description">{{fullSign}}</div>
-        <div class="time">
-          {{format-date arrivalTime fromBinding=queryTime preventPast=true}}
-          {{#if isScheduled}}
-            <span class="accuracy scheduled">Scheduled</span>
-          {{else}}
-            <span class="accuracy gps">GPS</span>
-          {{/if}}
-        </div>
-      </div>
-    {{/with}}
-
-    {{#if laterArrivals}}
-      <ul class="later-arrivals">
-        {{#each laterArrivals}}
-          <li>{{shortSign}} {{format-date arrivalTime fromBinding=queryTime}}</li>
-        {{/each}}
-      </ul>
-    {{/if}}
-  {{else}}
-    <div class="no-arrivals">
-      No estimates for this location.
+  <div class="distance">{{distance}} away • #{{locid}}</div>
+  {{#if arrivals.isLoading}}
+    <div class="loading-arrivals">
+      Loading arrivals…
     </div>
+  {{else}}
+    {{#if arrivals}}
+      {{#with arrivals.firstObject}}
+        <div class="first-arrival">
+          <div class="description">{{fullSign}}</div>
+          <div class="time">
+            {{format-date arrivalTime fromBinding=queryTime preventPast=true}}
+            {{#if isScheduled}}
+              <span class="accuracy scheduled">Scheduled</span>
+            {{else}}
+              <span class="accuracy gps">GPS</span>
+            {{/if}}
+          </div>
+        </div>
+      {{/with}}
+
+      {{#if laterArrivals}}
+        <ul class="later-arrivals">
+          {{#each laterArrivals}}
+            <li>{{shortSign}} {{format-date arrivalTime fromBinding=queryTime}}</li>
+          {{/each}}
+        </ul>
+      {{/if}}
+    {{else}}
+      <div class="no-arrivals">
+        No estimates for this location.
+      </div>
+    {{/if}}
   {{/if}}
 
-  <div class="loc-id">#{{locid}}</div>
   </div>
 {{/each}}

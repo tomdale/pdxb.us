@@ -1,7 +1,7 @@
 @import "compass/css3";
 
 html, body {
-  padding: 17px;
+  padding: 7px;
 }
 
 body {
@@ -13,6 +13,12 @@ body {
 
 $gray: #aaa;
 $blue: rgb(0, 122, 255);
+
+.loading {
+  color: $blue;
+  text-align: center;
+  margin-top: 40px;
+}
 
 .location {
   margin: 0 auto 30px;
@@ -74,11 +80,6 @@ h2 {
   }
 }
 
-.no-arrivals {
-  color: $gray;
-}
-
-.loc-id {
-  text-align: right;
+.loading-arrivals, .no-arrivals {
   color: $gray;
 }

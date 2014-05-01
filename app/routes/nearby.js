@@ -70,6 +70,7 @@ function loadArrivals(locations, data) {
 
   locations.forEach(function(location) {
     locationsByID[location.get('locid')] = location;
+    location.set('arrivals.isLoading', false);
   });
 
   arrivals.forEach(function(arrival) {
