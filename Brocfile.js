@@ -3,15 +3,6 @@
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 var compileCompass = require('broccoli-compass');
 
-EmberApp.prototype.styles = function() {
-  return compileCompass(this.appAndDependencies(), this.name + '/styles/app.scss', {
-    outputStyle: 'expanded',
-    sassDir: this.name + '/styles',
-    imagesDir: 'public/images',
-    cssDir: '/assets'
-  });
-};
-
 var app = new EmberApp({
   name: require('./package.json').name,
 
@@ -45,5 +36,14 @@ var app = new EmberApp({
   // hack
   getEnvJSON: require('./config/environment')
 });
+
+app.styles = function() {
+  return compileCompass(this.appAndDependencies(), this.name + '/styles/app.scss', {
+    outputStyle: 'expanded',
+    sassDir: this.name + '/styles',
+    imagesDir: 'public/images',
+    cssDir: '/assets'
+  });
+};
 
 module.exports = app.toTree();
