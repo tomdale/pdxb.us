@@ -22,7 +22,7 @@
     {{#if arrivals}}
       {{#with arrivals.firstObject}}
         <div class="first-arrival">
-          <div class="description">{{fullSign}}</div>
+          <div class="description">{{format-full-sign fullSign}}</div>
           <div class="time">
             {{format-date arrivalTime fromBinding=queryTime preventPast=true}}
             {{#if isScheduled}}
