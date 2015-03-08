@@ -1,13 +1,15 @@
-import Ember from "ember";
+import DS from "ember-data";
 
-export default Ember.Object.extend({
-  init: function() {
-    var arrivals = [];
-    arrivals.isLoading = true;
+var attr = DS.attr,
+    hasMany = DS.hasMany;
 
-    this.set('arrivals', arrivals);
-  },
-  arrivals: null,
+export default DS.Model.extend({
+  desc: attr(),
+  dir: attr(),
+  lat: attr(),
+  lng: attr(),
+
+  arrivals: hasMany('arrival', { async: true }),
 
   laterArrivals: function() {
     return this.get('arrivals').slice(1);

@@ -1,14 +1,23 @@
 import Ember from "ember";
 import haversine from "pdxbus/utils/haversine-distance";
 
-export default Ember.ObjectController.extend({
+var alias = Ember.computed.alias,
+    service = Ember.inject.service;
+
+export default Ember.Component.extend({
+  geolocation: service(),
+  currentPosition: alias('geolocation.currentPosition'),
+
+  lat: alias('location.lat'),
+  lng: alias('location.lng'),
+
   distance: function() {
     var locationPosition = {
-      latitude: this.get('lat'),
-      longitude: this.get('lng')
+      latitude: this.get('location.lat'),
+      longitude: this.get('location.lng')
     };
 
-    var userPosition = this.get('parentController.currentPosition');
+    var userPosition = this.get('currentPosition.coords');
 
     // Convert from miles to feet
     var distance = haversine(locationPosition, userPosition);
@@ -23,5 +32,5 @@ export default Ember.ObjectController.extend({
     }
 
     return distance + " " + unit;
-  }.property('lat', 'lng', 'parentController.currentPosition')
+  }.property('lat', 'lng', 'currentPosition')
 });

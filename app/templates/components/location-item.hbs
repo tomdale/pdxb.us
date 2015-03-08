@@ -1,0 +1,37 @@
+<div class="location">
+  <h2>{{location.desc}} <span>{{location.dir}}</span></h2>
+  {{#if location.arrivals.isPending}}
+    <div class="loading-arrivals">
+      Loading arrivals…
+    </div>
+  {{else}}
+    {{#if location.arrivals}}
+      {{#with location.arrivals.firstObject as |arrival|}}
+        <div class="first-arrival">
+          <div class="description">{{format-full-sign arrival.fullSign}}</div>
+          <div class="time">
+            {{format-date arrival.arrivalTime fromNow=true preventPast=true}}
+            {{#if arrival.isScheduled}}
+              <span class="accuracy scheduled">Scheduled</span>
+            {{else}}
+              <span class="accuracy gps">GPS</span>
+            {{/if}}
+          </div>
+        </div>
+      {{/with}}
+
+      {{#if location.laterArrivals}}
+        <ul class="later-arrivals">
+          {{#each location.laterArrivals as |arrival|}}
+            <li>{{arrival.shortSign}} {{format-date arrival.arrivalTime fromNow=true}}</li>
+          {{/each}}
+        </ul>
+      {{/if}}
+    {{else}}
+      <div class="no-arrivals">
+        No estimates for this location.
+      </div>
+    {{/if}}
+  {{/if}}
+  <div class="distance">{{distance}} away • #{{location.id}}</div>
+</div>

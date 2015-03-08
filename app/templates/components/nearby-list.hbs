@@ -1,0 +1,9 @@
+{{#if loadingPhase}}
+<div class="loading">
+  {{loadingPhase}}
+</div>
+{{/if}}
+
+{{#each locations as |location|}}
+  {{location-item location=location}}
+{{/each}}

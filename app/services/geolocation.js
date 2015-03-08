@@ -7,7 +7,7 @@ if ('geolocation' in navigator) {
   geolocation = navigator.geolocation;
 }
 
-export default Ember.Object.extend({
+export default Ember.Service.extend({
   /*
    * The maximumAge attribute indicates that the application is willing to
    * accept a cached position whose age is no greater than the specified time
@@ -22,18 +22,37 @@ export default Ember.Object.extend({
    */
   maximumAge: 1000,
 
+  start: function() {
+    if (!geolocation) {
+      throw new Error("Geolocation is not available either in this browser or on this device.");
+    }
+
+    // We're already watching the position
+    if (this.watchID) {
+      return;
+    }
+
+    this.watchID = geolocation.watchPosition(position => {
+      var currentPosition = this.get('currentPosition');
+
+      if (!currentPosition || position.timestamp > currentPosition.timestamp) {
+        this.set('currentPosition', position);
+      }
+    });
+  },
+
   enableHighAccuracy: true,
 
   getPosition: function() {
-    return new Ember.RSVP.Promise(function(res, rej) {
-      if (!geolocation) {
-        rej(new Error("Geolocation is not available either in this browser or on this device."));
-        return;
-      }
+    this.start();
+    var options = buildOptions(this);
 
-      geolocation.watchPosition(function(position) {
-        res(position);
-      });
+    return new Ember.RSVP.Promise(function(res, rej) {
+      geolocation.getCurrentPosition(res, rej, options);
     });
   }
 });
+
+function buildOptions(service) {
+  return service.getProperties('maximumAge', 'timeout', 'enableHighAccuracy');
+}
