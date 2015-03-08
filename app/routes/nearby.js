@@ -1,3 +1,4 @@
+import Ember from "ember";
 import Location from "pdxbus/models/location";
 import Arrival from "pdxbus/models/arrival";
 

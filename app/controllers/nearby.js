@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 function loadingPhaseProperty(phase) {
   return function() {
     return this.get('loadingPhase') === phase;

@@ -1,3 +1,4 @@
+import Ember from "ember";
 import haversine from "pdxbus/utils/haversine-distance";
 
 export default Ember.ObjectController.extend({

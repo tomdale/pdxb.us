@@ -13,7 +13,6 @@
 {{#each itemController="locationItem"}}
 <div class="location">
   <h2>{{desc}} <span>{{dir}}</span></h2>
-  <div class="distance">{{distance}} away • #{{locid}}</div>
   {{#if arrivals.isLoading}}
     <div class="loading-arrivals">
       Loading arrivals…
@@ -47,6 +46,6 @@
       </div>
     {{/if}}
   {{/if}}
-
+    <div class="distance">{{distance}} away • #{{locid}}</div>
   </div>
 {{/each}}

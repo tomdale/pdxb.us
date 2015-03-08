@@ -1,3 +1,5 @@
+import Ember from "ember";
+
 var geolocation;
 
 // Detect if geolocation is available on the current device.

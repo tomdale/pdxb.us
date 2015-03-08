@@ -1,7 +1,6 @@
-@import "compass/css3";
-
 html, body {
   padding: 7px;
+  color: #333;
 }
 
 body {
@@ -23,8 +22,7 @@ $blue: rgb(0, 122, 255);
 .location {
   margin: 0 auto 30px;
   padding: 15px 25px;
-  border: 1px solid lighten($gray, 20%);
-  @include border-radius(5px);
+  border-radius: 5px;
 }
 
 h2 {
@@ -44,18 +42,22 @@ h2 {
   text-align: center;
   color: $gray;
   margin-bottom: 7px;
+  font-size: 80%;
 }
 
 .first-arrival {
   font-size: 130%;
   border-left: 3px solid $blue;
   padding: 13px;
+  padding-right: 0;
 
   .description {
     font-weight: 600;
   }
 
   .accuracy {
+    display: inline-block;
+    padding-bottom: 2px;
     font-size: 60%;
     text-transform: uppercase;
     color: darken(red, 10%);
@@ -71,6 +73,8 @@ h2 {
 .later-arrivals {
   list-style-type: none;
   padding: 6px 13px;
+  margin-top: 0;
+  font-size: 80%;
 
   border-left: 3px solid lighten($blue, 30%);
 
@@ -81,5 +85,8 @@ h2 {
 }
 
 .loading-arrivals, .no-arrivals {
+  margin: 25px auto;
+  font-size: 120%;
+  text-align: center;
   color: $gray;
 }

@@ -1,4 +1,4 @@
-export default Ember.Handlebars.makeBoundHelper(function(value, options) {
+export default function(value, options) {
   if (!value) { return; }
 
   options = options.hash;
@@ -23,4 +23,4 @@ export default Ember.Handlebars.makeBoundHelper(function(value, options) {
   } else {
     return m.format(options.format);
   }
-});
+};

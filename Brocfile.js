@@ -1,49 +1,22 @@
 /* global require, module */
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
-var compileCompass = require('broccoli-compass');
 
-var app = new EmberApp({
-  name: require('./package.json').name,
+var app = new EmberApp();
 
-  legacyFilesToAppend: [
-    'jquery.js',
-    'handlebars.js',
-    'moment.js',
-    'ember.js',
-    'ic-ajax/dist/named-amd/main.js',
-    'ember-data.js',
-    'app-shims.js',
-    'ember-resolver.js',
-    'ember-load-initializers.js'
-  ],
+// Use `app.import` to add additional libraries to the generated
+// output files.
+//
+// If you need to use different assets in different
+// environments, specify an object as the first parameter. That
+// object's keys should be the environment name and the values
+// should be the asset to use in that environment.
+//
+// If the library that you are including contains AMD or ES6
+// modules that you would like to import into your application
+// please specify an object with the list of modules as keys
+// along with the exports of each module as its value.
 
-  // AKA whitelisted modules
-  ignoredModules: [
-    'ember',
-    'ember/resolver',
-    'ember/load-initializers',
-    'ic-ajax'
-  ],
-
-  // hack we can hopefully remove as the addon system improves
-  importWhitelist: {
-    'ember': ['default'],
-    'ember/resolver': ['default'],
-    'ember/load-initializers': ['default']
-  },
-
-  // hack
-  getEnvJSON: require('./config/environment')
-});
-
-app.styles = function() {
-  return compileCompass(this.appAndDependencies(), this.name + '/styles/app.scss', {
-    outputStyle: 'expanded',
-    sassDir: this.name + '/styles',
-    imagesDir: 'public/images',
-    cssDir: '/assets'
-  });
-};
+app.import('bower_components/moment/moment.js');
 
 module.exports = app.toTree();
