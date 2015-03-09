@@ -5,6 +5,7 @@ var attr = DS.attr,
 
 export default DS.Model.extend({
   status: attr(),
+  scheduled: attr(),
   estimated: attr(),
   block: attr(),
   detour: attr(),
